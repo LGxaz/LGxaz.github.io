@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>FifthWeek | 潇</title><meta name="author" content="造造"><meta name="copyright" content="造造"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="逻辑斯蒂回归基本概念回归任务： y ∈ R 连续的空间逻辑斯蒂回归： 名字叫回归，但是是做分类的，估算y属于哪一个类别，不是让y等于某一个特定值，因为类别无法进行数值之间的大小比较，而是计算属于每一个分类的概率，概率最大的就是分类的结果。二分类： 只有两个类别的分类问题 且 P(y &#x3D; 1) + P(y &#x3D; 0) &#x3D; 1现在想计算概率属于[0, 1]，而不是实数，使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FifthWeek">
+<meta property="og:url" content="http://example.com/2023/10/22/FifthWeek/index.html">
+<meta property="og:site_name" content="潇">
+<meta property="og:description" content="逻辑斯蒂回归基本概念回归任务： y ∈ R 连续的空间逻辑斯蒂回归： 名字叫回归，但是是做分类的，估算y属于哪一个类别，不是让y等于某一个特定值，因为类别无法进行数值之间的大小比较，而是计算属于每一个分类的概率，概率最大的就是分类的结果。二分类： 只有两个类别的分类问题 且 P(y &#x3D; 1) + P(y &#x3D; 0) &#x3D; 1现在想计算概率属于[0, 1]，而不是实数，使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/preview1.jpg">
+<meta property="article:published_time" content="2023-10-22T03:53:48.000Z">
+<meta property="article:modified_time" content="2023-10-22T05:08:35.973Z">
+<meta property="article:author" content="造造">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/preview1.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/10/22/FifthWeek/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'FifthWeek',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-22 13:08:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/QQ%E5%9B%BE%E7%89%8720220927135531.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/preview1.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">潇</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">FifthWeek</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-22T03:53:48.000Z" title="发表于 2023-10-22 11:53:48">2023-10-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-22T05:08:35.973Z" title="更新于 2023-10-22 13:08:35">2023-10-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="FifthWeek"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="逻辑斯蒂回归"><a href="#逻辑斯蒂回归" class="headerlink" title="逻辑斯蒂回归"></a>逻辑斯蒂回归</h1><p><strong>基本概念</strong><br><strong>回归任务</strong>： y ∈ R 连续的空间<br><strong>逻辑斯蒂回归</strong>： 名字叫回归，但是是做分类的，估算y属于哪一个类别，不是让y等于某一个特定值，因为类别无法进行数值之间的大小比较，而是计算属于每一个分类的概率，概率最大的就是分类的结果。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/4dcebb51f86e473d8caffe86c355ac13.png" alt="Alt text"><br><strong>二分类</strong>： 只有两个类别的分类问题 且 P(y &#x3D; 1) + P(y &#x3D; 0) &#x3D; 1<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/c8bcede38bb74b3ea3371e4f938002c3.png" alt="Alt text"><br>现在想计算概率属于[0, 1]，而不是实数，使用sigmod()函数将实数空间映射到[0, 1]之间<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/d83d31c93d4e40d2ab26bd8b58b7505f.png" alt="Alt text"><br><strong>sigmod函数特征</strong>：</p>
+<blockquote>
+<ul>
+<li>[-1, 1]</li>
+<li>单调增函数</li>
+<li>饱和函数<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/23805d4692a24b19b59ba426999a8f76.png" alt="Alt text"><br>所以逻辑斯蒂回归就是在线性回归的基础上增加一个sigmod函数，保证输出值在0 ~ 1之间<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/8443b971fc914c05814d8498b5e64bf4.png" alt="Alt text"><br>比较两个分布之间的差异，二分类可以使用交叉熵损失BCE函数，预测值与标签越接近，损失值越小<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/c8c8f28633084c0b923663cae545ad43.png" alt="Alt text"></li>
+</ul>
+</blockquote>
+<h1 id="多维特征的输入"><a href="#多维特征的输入" class="headerlink" title="多维特征的输入"></a>多维特征的输入</h1><p><strong>1、行为记录，列为特征</strong><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/aeef693e8fc6416d99c00837b89d3986.png" alt="Alt text"><br><strong>2、转化</strong><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/d42273ac9ffe4bddae719183f191c7c1.png" alt="Alt text"><br>一般来说，中间层数越多，网络对非线性映射的拟合程度越好，学习能力越强，但是学习能力太强可能会将输入的噪声也学习进去，所以网络学习能力太强也不好，学习应该具有泛化能力。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/710f15b3eedb47c49e3ac9ab59a0cd9e.png" alt="Alt text"></p>
+<h1 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h1><p><strong>1、mini-batch产生的原因</strong><br><strong>随机梯度下降</strong>： 只用一个样本，具有较好的随机性，可以克服鞍点的问题，但训练时间比较长<br><strong>batch</strong>： 最大化利用向量计算的优势，提升计算的速度，但性能上会遇到一些问题<br><strong>解决办法</strong>： 使用mini-batch来均衡速度和性能上的需求<br><strong>2、DataLoader</strong>工作过程<br>先通过shuffle打乱数据，再将数据分成mini-batch大小<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/2da4ac2b0d984822a39d8823ec84a610.png" alt="Alt text"></p>
+<h2 id="多分类问题"><a href="#多分类问题" class="headerlink" title="多分类问题"></a>多分类问题</h2><p><strong>1、softmax函数</strong><br>糖尿病数据集分类为0和1，MNIST数据集有10个分类怎么办？输出时输出10个y？<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/e64f8e57ffea4b04bc8718c8c17dc0f4.png" alt="Alt text"><br>神经网络希望输出之间是带有竞争性的，即所有概率之和为1，且所有概率均大于0，softmax可以实现这两点。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/894d599538194658a9c3e8fd8aa38a0b.png" alt="Alt text"><br>图中绿色框中就是指包括softmax的计算过程：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/691878b759284a599c3f1d537ca43ff7.png" alt="Alt text"></p>
+<h1 id="GAN初入门"><a href="#GAN初入门" class="headerlink" title="GAN初入门"></a>GAN初入门</h1><h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><p>GAN属于人工智能领域：通过对某一事物大量数据的学习，来学习总结出其在数学层面上的分布规律，构建出合理的映射函数，从而解决现实问题</p>
+<blockquote>
+<ul>
+<li><strong>什么是人工智能系统？</strong><br>可以像人一样实现某些功能的机器或计算机  </li>
+<li><strong>为什么要开发人工智能系统？</strong><br>开发具有特定功能的人工智能系统用来为人类服务，因为有些功能人是没办法或很难实现的（如语音识别、人脸识别、围棋预测等）</li>
+<li><strong>人工智能系统具体如何来开发？</strong><br>通过大量数据的学习来总结事物规律——构件映射函数<br>小栗子：直角三角形的规律的学习总结<br>1.通过对大量三角形的学习，我们可以找到规律：有一个角为90°的三角形为直角三角形<br>2.从而构建出直角三角形映射函数:输入x1&#x3D;60°，x2&#x3D;90°，x3&#x3D;30°，输出为1；输入x1&#x3D;70°，x2&#x3D;60°，x3&#x3D;50°，输出为0；<br>人工智能本质上是一个构建数据的映射函数，而构建数据的映射函数需要通过一个学习归纳总结的过程，因此需要提供一个用于学习的模型，而生成对抗网络就是一种用来学习的模型</li>
+</ul>
+</blockquote>
+<h2 id="GAN介绍"><a href="#GAN介绍" class="headerlink" title="GAN介绍"></a>GAN介绍</h2><p><strong>1.1 GAN的基本概念介绍</strong><br>GAN的全称是Generative adversarial network，中文翻译过来就是生成对抗网络。生成对抗网络其实是两个网络的组合：生成网络（Generator）负责生成模拟数据；判别网络Discriminator）负责判断输入的数据是真实的还是生成的。生成网络要不断优化自己生成的数据让判别网络判断不出来，判别网络也要优化自己让自己判断得更准确。二者关系形成对抗，因此叫对抗网络。<br><strong>1.2 GAN的基本架构图</strong><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/528f82cc62114b1aba09e96de3a969e2.png" alt="Alt text"><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/3b09e959ada241d292203421f4708554.jpg" alt="Alt text"><br>生成网络和判别网络都是神经网络的模式。  </p>
+<blockquote>
+<ul>
+<li>**生成器(Generator)**：通过机器生成数据（大部分情况下是图像），最终目的是“骗过”判别器。</li>
+<li>**判别器(Discriminator)**：判断这张图像是真实的还是机器生成的，目的是找出生成器做的“假数据”。</li>
+</ul>
+</blockquote>
+<p><strong>2.一个GAN的形成过程</strong><br>现实问题需求→建立实现功能的GAN框架(编程)→训练GAN(生成网络、对抗网络)→成熟的GAN模型→应用。<br><strong>2.1训练GAN：生成网络和判别网络的训练 (优化)</strong><br>GAN模型不是一上来就能实现具体功能的，需要经历一个训练的过程。我将其训练前后状态称为“原始的GAN模型”和“成熟的GAN模型”，原始的GAN模型要经过一个训练的过程成为一个成熟的GAN模型，而这个“成熟的GAN模型”才是我们实际应用的GAN模型。那么这个训练过程具体是训练什么呢？是训练生成网络(Generator)和判别网络(Discriminator)。而且训练就要涉及到数据集了。</p>
+<blockquote>
+<ul>
+<li>具体怎么训练的概念介绍：</li>
+</ul>
+</blockquote>
+<p>这是一个生成器和判别器博弈的过程。生成器生成假数据，然后将生成的假数据和真数据都输入判别器，判别器要判断出哪些是真的哪些是假的。判别器第一次判别出来的肯定有很大的误差，然后我们根据误差来优化判别器。现在判别器水平提高了，生成器生成的数据很难再骗过判别器了，所以我们得反过来优化生成器，之后生成器水平提高了，然后反过来继续训练判别器，判别器水平又提高了，再反过来训练生成器，就这样循环往复，直到达到纳什均衡。更多详细内容请看一文看懂生成对抗网络——GANs。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/5c503fe0214247ff8b361d1dfb40b05c.png" alt="Alt text"></p>
+<blockquote>
+<ul>
+<li>具体怎么训练的原理介绍（数学层面）：</li>
+</ul>
+</blockquote>
+<p>具体生成网络和对抗网络的优化是如何实现的?继续往下走，这就涉及到两个核心的问题：神经网络的架构和损失函数 (loss function)。神经网络架构和损失函数的定义是能够实现优化（训练）的两个基本要素。</p>
+<p><strong>1）神经网络架构</strong>:之前说了生成网络和对抗网络采用的都是神经网络的框架，也提到了是因为适合才选择神经网络的框架的，那么下面介绍一下为什么神经网络模型适合于事物分布规律的学习（成熟的GAN网络就是学习之后的GAN网络）。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/fcc8d05a01e6994c560330075bcd271a.png" alt="Alt text"><br>上图所示的就是生成器和判别器里面会采用的神经网络的一个简单的例子展示，这种结构的人工神经网络在学界被称为“多层感知器” ：由输入层(Input Layer)、隐藏层(Hidden Layer)和输出层(Output Layer)组成。<br>输入层：只有一层，用于接收数据的特征X1 、X2……，然后原封不动输出给隐藏层，输入层不进行任何计算。</p>
+<p>隐藏层： 可以一层或多层，对上一层过来的数据进行处理然后输出给下一层，最终输出到输出层。f 指的是激活函数</p>
+<p>输出层： 从隐藏层获取输入并执行计算，作为这些计算结果的计算值Y1 、Y2……充当多层感知器的输出。<br>相邻两层每两个神经元之间的的连线上都有权重W_{ji}（神经元j和神经晕i之间的权重），优化的核心就是优化这些权重参数。怎么优化呢？首先就要引入损失函数，（损失函数相当于误差），有误差，根据误差反过来就可以调整参数。</p>
+<p><strong>2）损失函数(loss function)</strong>:损失函数(loss function)是用来估量模型的预测值与真实值的不一致程度（即误差）。<br>生成网络的损失函数：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/eq.png" alt="Alt text"><br>上式中，G 代表生成网络，D 代表判别网络，H 代表交叉熵，z 是输入随机数据。<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/eq%20(2).png" alt="Alt text">是对生成数据的判断概率，1代表数据绝对真实，0代表数据绝对虚假。<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/eq%20(3).png" alt="Alt text">代表判断结果与1的距离。显然生成网络想取得良好的效果，那就要做到，让判别器将生成数据判别为真数据（即D(G(z))与1的距离越小越好）。</p>
+<p>判别网络的损失函数：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/eq%20(1).png" alt="Alt text"><br>上式中，<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/eq%20(4).png" alt="Alt text">是真实数据，这里要注意的是，代表真实数据与1的距离，<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2023/10/22/FifthWeek/eq%20(5).png" alt="Alt text">代表生成数据与0的距离。显然，识别网络要想取得良好的效果，那么就要做到，在它眼里，真实数据就是真实数据，生成数据就是虚假数据（即真实数据与1的距离小，生成数据与0的距离小）。  </p>
+<blockquote>
+<ul>
+<li>优化原理：生成网络和判别网络有了损失函数，就可以基于各自的损失函数，利用误差反向传播（Backpropagation）(BP)反向传播算法和最优化方法(如梯度下降法)来实现参数的调整），不断提高生成网络和判别网络的性能（最终生成网络和判别网络的成熟状态就是学习到了合理的映射函数）。</li>
+</ul>
+</blockquote>
+<p><strong>3.卷积神经网络</strong><br>我们在学习中GAN时经常遇到“卷积”，对于一部分人来说，时常弄不清楚“卷积”与GAN之间的关系。下面我来介绍一下我理解的“卷积”和GAN之间的区别与联系。“卷积”在这里指的是卷积神经网络（我理解为在神经网络架构上利用卷积的原理来实现某种功能的一种特定神经网络架构），众所周知，卷积神经网络对于图像特征提取具有十分优异的性能，而很多GAN又都是跟图像有关系的（例如图像识别、图形转换等），因此卷积和神经网络就自然而然的结合了起来。</p>
+<p><strong>4.总结</strong>   </p>
+<blockquote>
+<ul>
+<li>1.生成网络和判别网络的网络架构</li>
+</ul>
+</blockquote>
+<p>以深度卷积神将网络为例(DCGAN)<br>生成网络:卷积神经网络+反卷积神经网络(前者负责提取图像特征，后者负责根据输入的特征重新生成图像（即假数据）)。反卷积神经网络在此不做介绍，有兴趣的同学自行学习。<br>判别网络：卷积神经网络+全连接层处理(传统神经网络)(前者负责提取图像特征，后者负责判别真假。)</p>
+<blockquote>
+<ul>
+<li>2.神经网络的基本概念</li>
+</ul>
+</blockquote>
+<p>以神经元为基本单元，通过设置不同参数和设计不同形式而构成的网络模型。</p>
+<blockquote>
+<ul>
+<li>3.GAN的核心要点</li>
+</ul>
+</blockquote>
+<p>GAN的核心要点我觉得主要体现在GAN训练的核心上，即神经网络架构和损失函数基础下的误差反向传播。</p>
+<blockquote>
+<ul>
+<li>4.卷积神经网络</li>
+</ul>
+</blockquote>
+<p>卷积神经网络和GAN的关系:卷积神经网络对于处理图像相关的GAN来讲至关重要，是提取图像特征的重要工具；卷积神经网络与传统的多层感知器网络的对比；卷积神经网络的卷积操作的介绍。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">造造</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/10/22/FifthWeek/">http://example.com/2023/10/22/FifthWeek/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">潇</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/preview1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/10/15/ForthWeek/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/preview1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ForthWeek</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%96%AF%E8%92%82%E5%9B%9E%E5%BD%92"><span class="toc-text">逻辑斯蒂回归</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E7%BB%B4%E7%89%B9%E5%BE%81%E7%9A%84%E8%BE%93%E5%85%A5"><span class="toc-text">多维特征的输入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">加载数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-text">多分类问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GAN%E5%88%9D%E5%85%A5%E9%97%A8"><span class="toc-text">GAN初入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-text">预备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GAN%E4%BB%8B%E7%BB%8D"><span class="toc-text">GAN介绍</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 造造</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="60" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
