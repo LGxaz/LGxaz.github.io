@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>report2</title>
+      <link href="/2024/07/11/report2/"/>
+      <url>/2024/07/11/report2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="双线性池化（Biliner-Pooling）详解、改进及应用"><a href="#双线性池化（Biliner-Pooling）详解、改进及应用" class="headerlink" title="双线性池化（Biliner Pooling）详解、改进及应用"></a>双线性池化（Biliner Pooling）详解、改进及应用</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>biliner pooling主要用于特征融合，对于从同一个样本提取出来的特征x和特征y，通过biliner pooling得到两个特征融合后的向量。如果特征x和特征y来自两个特征提取器，则被称为多模双线性池化（MBP，Multimodal Bilinear Pooling）。如果特征x&#x3D;特征y，则被称为同源双线性池化（HBP，Homogeneous Bilinear Pooling）或者二阶池化（Second-order Pooling）。</p><h2 id="biliner-pooling详解"><a href="#biliner-pooling详解" class="headerlink" title="biliner pooling详解"></a>biliner pooling详解</h2><p>这里参考《Bilinear CNN Models for Fine-grained Visual Recognition》，CVPR 2015一文，给出bilinear pooling的详细定义。<br><img src="/2024/07/11/report2/2e6be49d4cf34e15901fe4c0aa98a656.png" alt="alt text"><br>作者使用bilinear pooling对两种特征提取器进行融合，再用于fine-grained分类，取得不错的效果。bilinear pooling的形式简单，便于梯度反向传播，进而实现端到端的训练。<br><img src="/2024/07/11/report2/2434788ffd6a481b984d96b54bcc685b.png" alt="alt text"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>AUTO部署远程服务器教程</title>
       <link href="/2024/03/25/AUTO%E9%83%A8%E7%BD%B2%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B/"/>
       <url>/2024/03/25/AUTO%E9%83%A8%E7%BD%B2%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B/</url>
